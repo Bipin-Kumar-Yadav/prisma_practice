@@ -13,19 +13,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Todo {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  description   String?
+  done Boolean  @default(false)
+  user    User     @relation(fields: [userId], references: [id])
+  userId  Int
 }
 
 
 model User {
   id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
+  username   String   @unique
+  password   String
+  firstName  String?
+  lastName   String?
+  todos      Todo[]
 }
